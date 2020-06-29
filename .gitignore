@@ -1,3 +1,4 @@
 *.pyc
 dist
-
+poetry.lock
+zedchi_bem_fs_maker.egg-info
