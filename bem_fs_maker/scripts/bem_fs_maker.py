@@ -70,48 +70,44 @@ class Bem_fs_maker:
             self.blocks[block]["elements"][elem]["modifiers"].add(el_mod)
 
     """ makes nest fs """
+    def mkdir(self, path):
+        if not os.path.exists(path):
+            os.mkdir(path)
+    
+    def mkfile(self, file_path):
+        if not os.path.exists(file_path):
+            file = open(file_path, "w")
+            file.close()
 
     def make_nest_fs(self):
         for block in self.blocks.keys():
             block_dir = os.path.join(self.blocks_path, block)
-            if not os.path.exists(block_dir):
-                os.mkdir(block_dir)
+            self.mkdir(block_dir)
             for ext in self.exts:
-                filename = os.path.join(block_dir, f"{block}.{ext}")
-                if not os.path.exists(filename):
-                    file = open(filename, "w")
-                    file.close()
+                file_path = os.path.join(block_dir, f"{block}.{ext}")
+                self.mkfile(file_path)
             for mod in self.blocks[block]["modifiers"]:
                 mod_dir = os.path.join(block_dir, f"_{mod}")
-                if not os.path.exists(mod_dir):
-                    os.mkdir(mod_dir)
+                self.mkdir(mod_dir)
                 for ext in self.exts:
-                    filename = os.path.join(mod_dir, f"{block}_{mod}.{ext}")
-                    if not os.path.exists(filename):
-                        file = open(filename, "w")
-                        file.close()
+                    file_path = os.path.join(mod_dir, f"{block}_{mod}.{ext}")
+                    self.mkfile(file_path)
             for elem in self.blocks[block]["elements"].keys():
                 elem_dir = os.path.join(block_dir, f"__{elem}")
-                if not os.path.exists(elem_dir):
-                    os.mkdir(elem_dir)
+                self.mkdir(elem_dir)
                 for ext in self.exts:
-                    filename = os.path.join(elem_dir, f"{block}__{elem}.{ext}")
-                    if not os.path.exists(filename):
-                        file = open(filename, "w")
-                        file.close()
+                    file_path = os.path.join(elem_dir, f"{block}__{elem}.{ext}")
+                    self.mkfile(file_path)
                 for el_mod in self.blocks[block]["elements"][elem][
                     "modifiers"
                 ]:
                     el_mod_dir = os.path.join(elem_dir, f"_{el_mod}")
-                    if not os.path.exists(el_mod_dir):
-                        os.mkdir(el_mod_dir)
+                    self.mkdir(el_mod_dir)
                     for ext in self.exts:
-                        filename = os.path.join(
+                        file_path = os.path.join(
                             el_mod_dir, f"{block}__{elem}_{el_mod}.{ext}"
                         )
-                        if not os.path.exists(filename):
-                            file = open(filename, "w")
-                            file.close()
+                        self.mkfile(file_path)
 
     def make_flat_fs(self):
         pass
