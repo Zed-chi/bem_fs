@@ -1,0 +1,1 @@
+poetry config repositories.test https://test.pypi.org/legacy/
