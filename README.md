@@ -1,4 +1,5 @@
 # BEM fs maker
+[![Maintainability](https://api.codeclimate.com/v1/badges/1f2b9ce8595553c25147/maintainability)](https://codeclimate.com/github/Zed-chi/bem_fs/maintainability)
 ## Simple dirs/files auto maker from html file
 
 ### Usage:
