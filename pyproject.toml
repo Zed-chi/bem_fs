@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "zedchi_bem_fs_maker"
-version = "0.1.1"
+version = "0.1.2"
 description = "bem filesystem maker from html"
 authors = ["zed-chi <zed-chi@mail.ru>"]
 license = "MIT"
