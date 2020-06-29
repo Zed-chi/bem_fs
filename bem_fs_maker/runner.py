@@ -16,11 +16,9 @@ def run():
     if not os.path.exists(root):
         os.mkdir(root)
 
-    exts = input("\nрасширения через пробел [css по-умолчанию]: ").split(" ")
-    if not exts:
-        exts = [
-            "css",
-        ]
-    fs_maker = Bem_fs_maker(root, filename, exts, "nest")
+    ext = input("\nрасширение [css по-умолчанию]: ")
+    if not ext:
+        ext = "css"
+    fs_maker = Bem_fs_maker(root, filename, ext, "nest")
     fs_maker.make_fs()
     print("\nЗавершено")
