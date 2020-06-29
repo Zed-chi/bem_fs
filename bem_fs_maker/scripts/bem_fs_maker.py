@@ -16,7 +16,8 @@ class Bem_fs_maker:
         if fs_scheme not in ["nest", "flat", "fluent"]:
             raise Exception("Scheme error")
         self.fs_scheme = fs_scheme
-        self.blocks = self.get_blocks()
+        self.blocks = {}
+        self.fill_blocks_dict()
 
     """ returns html string """
 
@@ -39,36 +40,34 @@ class Bem_fs_maker:
 
     """ returns blocks tree """
 
-    def get_blocks(self):
-        blocks = {}
+    def fill_blocks_dict(self):
         raw_tokens = self.get_raw_tokens_from_html()
         for word in raw_tokens:
-            if "__" not in word and "_" not in word:
-                blocks[word] = {"modifiers": [], "elements": {}}
-            elif "__" not in word:
-                block, modifier = word.split("_", 1)
-                blocks[block] = {"modifiers": [], "elements": {}}
-                blocks[block]["modifiers"].append(modifier)
+            self.add_to_blocks(*self.process_token(word))
+
+    def process_token(self, word):
+        if "__" in word:
+            block, tail = word.split("__", 1)
+            if "_" in tail:
+                element, modifier = word.split("_", 1)
+                return (block, None, element, modifier)
             else:
-                if "__" in word:
-                    block, tail = word.split("__")
-                    if block not in blocks:
-                        blocks[block] = {"modifiers": [], "elements": {}}
-                    if "_" in tail:
-                        element, modifier = tail.split("_", 1)
-                    else:
-                        element = tail
-                        modifier = None
-                    if element not in blocks[block]:
-                        blocks[block]["elements"][element] = {"modifiers": []}
-                    if modifier:
-                        blocks[block]["elements"][element]["modifiers"].append(
-                            modifier
-                        )
-                elif "_" in word:
-                    block, modifier = word.split("_", 1)
-                    blocks[block]["modifiers"].append(modifier)
-        return blocks
+                return (block, None, tail, None)
+        elif "_" in word:
+            block, modifier = word.split("_", 1)
+            return (block, modifier, None, None)
+        else:
+            return (word, None, None, None)
+
+    def add_to_blocks(self, block, mod=None, elem=None, el_mod=None):
+        if block not in self.blocks:
+            self.blocks[block] = {"modifiers": set(), "elements": {}}
+        if mod:
+            self.blocks[block]["modifiers"].add(mod)
+        if elem and elem not in self.blocks[block]["elements"]:
+            self.blocks[block]["elements"][elem] = {"modifiers": set()}
+        if elem and el_mod:
+            self.blocks[block]["elements"][elem]["modifiers"].add(el_mod)
 
     """ makes nest fs """
 
