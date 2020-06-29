@@ -46,13 +46,13 @@ class Bem_fs_maker:
             self.add_to_blocks(*self.process_token(word))
 
     def process_token(self, word):
-        if "__" in word:
+        if "__" in word and "_":
             block, tail = word.split("__", 1)
-            if "_" in tail:
-                element, modifier = word.split("_", 1)
-                return (block, None, element, modifier)
-            else:
-                return (block, None, tail, None)
+            element, modifier = tail.split("_", 1)                
+            return (block, None, element, modifier)
+        elif "__" in word:
+            block, element = word.split("__", 1)
+            return (block, None, element, None)
         elif "_" in word:
             block, modifier = word.split("_", 1)
             return (block, modifier, None, None)
