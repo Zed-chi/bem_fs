@@ -12,6 +12,9 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.7"
 
+[tool.poetry.dev-dependencies]
+flake8 = "^3.7.9"
+
 [tool.poetry.scripts]
 bem_fs = "bem_fs_maker.runner:run"
 
