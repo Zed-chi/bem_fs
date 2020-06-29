@@ -7,3 +7,7 @@ cli asks you for:
 - html filename to parse classes
 - extensions of files to make
 - (not now) bem scheme
+
+
+## install
+`pip install -i https://test.pypi.org/simple/ zedchi-bem-fs-maker`
