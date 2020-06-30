@@ -3,10 +3,11 @@
 ## Simple dirs/files auto maker from html file
 
 ### Usage:
-cli asks you for:
+after installing you can type `bem_fs` in console and
+cli will ask you for:
 - dir to save your blocks/elements,
 - html filename to parse classes
-- extensions of files to make
+- extension of files to make
 - (not now) bem scheme
 
 
